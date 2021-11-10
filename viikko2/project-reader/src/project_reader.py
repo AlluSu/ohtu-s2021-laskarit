@@ -1,5 +1,6 @@
 from urllib import request
 from project import Project
+import toml
 
 
 class ProjectReader:
@@ -7,7 +8,6 @@ class ProjectReader:
         self._url = url
 
     def get_project(self):
-        import toml
         # tiedoston merkkijonomuotoinen sisältö
         content = request.urlopen(self._url).read().decode("utf-8")
         new_content = toml.loads(content)
