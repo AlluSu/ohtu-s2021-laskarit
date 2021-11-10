@@ -10,8 +10,8 @@ def main():
     kirjanpito = Kirjanpito()
     varasto = Varasto(kirjanpito)
     pankki = Pankki(kirjanpito)
-    kauppa = Kauppa(varasto, pankki, viitegeneraattori)
-    #kauppa = Kauppa()
+    #kauppa = Kauppa(varasto, pankki, viitegeneraattori)
+    kauppa = Kauppa()
 
     # kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:
     kauppa.aloita_asiointi()
