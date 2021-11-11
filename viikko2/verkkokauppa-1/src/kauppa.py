@@ -6,9 +6,6 @@ from viitegeneraattori import viitegeneraattori as default_viitegeneraattori
 
 class Kauppa:
     def __init__(self, varasto=default_varasto, pankki=default_pankki, viitegeneraattori=default_viitegeneraattori):
-        #self._varasto = Varasto.get_instance()
-        #self._pankki = Pankki.get_instance()
-        #self._viitegeneraattori = Viitegeneraattori.get_instance()
         self._varasto = varasto
         self._pankki = pankki
         self._viitegeneraattori = viitegeneraattori

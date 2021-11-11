@@ -2,14 +2,6 @@ from kirjanpito import kirjanpito as default_kirjanpito
 
 
 class Pankki:
-    #__instanssi = None
-
-    #@staticmethod
-    #def get_instance():
-    #    if not Pankki.__instanssi:
-    #        Pankki.__instanssi = Pankki()
-    #    return Pankki.__instanssi
-
     def __init__(self, kirjanpito=default_kirjanpito):
         self._kirjanpito = kirjanpito
 

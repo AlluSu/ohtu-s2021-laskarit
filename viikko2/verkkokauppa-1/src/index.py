@@ -6,7 +6,6 @@ from viitegeneraattori import Viitegeneraattori
 
 
 def main():
-    #kauppa = Kauppa(varasto, pankki, viitegeneraattori)
     kauppa = Kauppa()
 
     # kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:
