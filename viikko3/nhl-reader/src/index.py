@@ -1,6 +1,9 @@
 from player import Player
 import requests
 
+def most_points(player):
+    return player.assists + player.goals
+
 def main():
     url = "https://nhlstatisticsforohtu.herokuapp.com/players"
     response = requests.get(url).json()
@@ -22,6 +25,8 @@ def main():
             players.append(player)
 
     print("Oliot:")
+
+    players.sort(reverse=True, key=most_points)
 
     for player in players:
         print(player)
