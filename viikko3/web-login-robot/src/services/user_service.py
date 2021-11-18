@@ -41,7 +41,7 @@ class UserService:
         if not username or not password:
             raise UserInputError("Username and password are required")
         if not re.search("[a-z]{3,}", username) and re.search("[0-9a-zA-Z]{7,}[0-9]+", password):
-            raise UserInputError("Username is too short, minimun length is 3")
+            raise UserInputError("Username is too short, minimum length is 3")
         if len(password) < 8 and re.search("[a-z]{3,}", username):
             raise UserInputError("Password is too short, minimum length is 8")
         if re.search("[0-9a-zA-Z]{7,}[0-9]+", password):

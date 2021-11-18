@@ -18,7 +18,7 @@ Register With Too Short Username And Valid Password
     Set Password Confirmation  antti123
     Click Register
     Element Should Be Visible  tag:li
-    Element Should Contain  tag:li  Username is too short, minimun length is 3
+    Element Should Contain  tag:li  Username is too short, minimum length is 3
     
 Register With Valid Username And Too Short Password
     Set Username  toimitusjohtaja
@@ -35,6 +35,34 @@ Register With Nonmatching Password And Password Confirmation
     Click Register
     Element Should Be Visible  tag:li
     Element Should Contain  tag:li  Password confirmation does not match
+
+Login After Succesful Registration
+    Set Username  toimitusjohtaja
+    Set Password  maybach123
+    Set Password Confirmation  maybach123
+    Click Register
+    Welcome Page Should Be Open
+    Click Link  Continue to main page
+    Click Button  Logout
+    Set Username  toimitusjohtaja
+    Set Password  maybach123
+    Click Button  Login
+    Title Should Be  Ohtu Application main page
+
+Login After Failed Registration
+    Set Username  aa
+    Set Password  kolmetoista13
+    Set Password Confirmation  kolmetoista13
+    Click Register
+    Element Should Be Visible  tag:li
+    Element Should Contain  tag:li  Username is too short, minimum length is 3
+    Click Link  Login
+    Set Username  aa
+    Set Password  kolme13toista#
+    Click Button  Login
+    Element Should Be Visible  tag:li
+    Element Should Contain  tag:li  Invalid username or password
+
 
 *** Keywords ***
 Set Username
