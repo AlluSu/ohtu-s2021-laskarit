@@ -1,0 +1,1 @@
+emacs on parempi editori kuin vim
