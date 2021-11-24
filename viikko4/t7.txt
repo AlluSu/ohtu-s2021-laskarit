@@ -1,3 +1,5 @@
 emacs on parempi editori kuin vim
 
 mutta joskus vim on kans ihan paikallaan
+
+vscode on zoomerien editori
