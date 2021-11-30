@@ -20,7 +20,9 @@ class TestKauppa(unittest.TestCase):
             if tuote_id == 2:
                 return 5
             if tuote_id == 3:
-                return 0        
+                return 0
+            if tuote_id == 4:
+                return 1          
 
         # tehdään toteutus hae_tuote-metodille
         def varasto_hae_tuote(tuote_id):
@@ -30,13 +32,40 @@ class TestKauppa(unittest.TestCase):
                 return Tuote(2, "piimä", 3)
             if tuote_id == 3:
                 return Tuote(3, "hatsapuri", 100)
+            if tuote_id == 4:
+                return Tuote(4, "Megaforce", 1000)    
 
         # otetaan toteutukset käyttöön
         self.varasto_mock.saldo.side_effect = varasto_saldo
         self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
         # alustetaan kauppa
         self.kauppa = Kauppa(self.varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
-    
+
+    #TODO
+    #def test_aloita_asiointi_nollaa_hinnan(self):
+
+
+    def test_pyydetaan_uusi_viite_jokaiseen_maksuun(self):
+        viitegeneraattori_mock = Mock(wraps=Viitegeneraattori())
+        kauppa = Kauppa(self.varasto_mock, self.pankki_mock, viitegeneraattori_mock)
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(1)
+        kauppa.tilimaksu("pekka", "12345")
+        self.assertEqual(viitegeneraattori_mock.uusi.call_count, 1)
+
+        kauppa = Kauppa(self.varasto_mock, self.pankki_mock, viitegeneraattori_mock)
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(1)
+        kauppa.tilimaksu("pekka", "12345")
+        self.assertEqual(viitegeneraattori_mock.uusi.call_count, 2)
+
+    #TODO
+    def test_korista_poisto_poistaa_korista_ja_palauttaa_varastoon(self):
+        kauppa.aloita_asiointi()
+        kauppa.lisaa_koriin(4)
+        kauppa.poista_korista(4)
+        self.assertEqual(kauppa.poista_korista.call_count, 1)
+
     def test_kahden_eri_ostoksen_joista_toinen_on_loppu_pankin_metodia_tilisiirto_kutsutaan_oikeilla_parametreilla(self):
         self.kauppa.aloita_asiointi()
         self.kauppa.lisaa_koriin(1)

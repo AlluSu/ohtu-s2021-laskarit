@@ -23,16 +23,9 @@ class IntJoukko:
         self.alkioiden_lkm = 0
 
     def kuuluu(self, n):
-        on = 0
-
-        for i in range(0, self.alkioiden_lkm):
-            if n == self.ljono[i]:
-                on = on + 1
-
-        if on > 0:
+        if n in self.ljono:
             return True
-        else:
-            return False
+        return False
 
     def lisaa(self, n):
         ei_ole = 0
@@ -79,9 +72,9 @@ class IntJoukko:
 
         return False
 
-    def kopioi_taulukko(self, a, b):
-        for i in range(0, len(a)):
-            b[i] = a[i]
+    def kopioi_taulukko(self, kopioitava, kopio):
+        for i in range(0, len(kopioitava)):
+            kopio[i] = kopioitava[i]
 
     def mahtavuus(self):
         return self.alkioiden_lkm
