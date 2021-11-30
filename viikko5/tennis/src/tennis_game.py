@@ -25,44 +25,52 @@ class TennisGame:
             3:"Forty-All",
             4:"Deuce"
         }
+        # näistä taikanumeroista voisi yrittää vielä päästä eroon
         if result > 3 or result < 0:
             return result_dict[4]
         return result_dict[result]
 
     def determine_winner_or_advantage(self, difference):
-        score = ""
+        # tätä voisi ehkä vielä refaktoroida jotenkin (?)
         if difference == 1:
-            score = "Advantage player1"
+            return "Advantage player1"
         elif difference == -1:
-            score = "Advantage player2"
+            return "Advantage player2"
         elif difference >= 2:
-            score = "Win for player1"
+            return "Win for player1"
         else:
-            score = "Win for player2"
+            return "Win for player2"
+
+    def either_player_has_max_score_or_more(self, player1_score, player2_score):
+        return self.player1_score >= self.MAX_SCORE or self.player2_score >= self.MAX_SCORE
+
+    def game_determines_score(self, player1_score, player2_score):
+        score = ""
+        temp_score = 0
+        temp_score_dict = {
+            0:score + "Love",
+            1:score + "Fifteen",
+            2:score + "Thirty",
+            3:score + "Forty"
+        }
+        for i in range(1, 3):
+            if i == 1:
+                temp_score = self.player1_score
+            else:
+                score = score + "-"
+                temp_score = self.player2_score
+            score += temp_score_dict[temp_score]
         return score
 
     def get_score(self):
         score = ""
-        temp_score = 0
 
         if self.is_tie(self.player1_score, self.player2_score):
             score = self.get_tie_results(self.player1_score)
-        elif self.player1_score >= self.MAX_SCORE or self.player2_score >= self.MAX_SCORE:
+        elif self.either_player_has_max_score_or_more(self.player1_score, self.player2_score):
             difference = self.player1_score - self.player2_score
             score = self.determine_winner_or_advantage(difference)
         else:
-            temp_score_dict = {
-                0:score + "Love",
-                1:score + "Fifteen",
-                2:score + "Thirty",
-                3:score + "Forty"
-            }
-            for i in range(1, 3):
-                if i == 1:
-                    temp_score = self.player1_score
-                else:
-                    score = score + "-"
-                    temp_score = self.player2_score
-                score += temp_score_dict[temp_score]
+            score = self.game_determines_score(self.player1_score, self.player2_score)
 
         return score
