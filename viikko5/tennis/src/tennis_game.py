@@ -29,6 +29,17 @@ class TennisGame:
             return result_dict[4]
         return result_dict[result]
 
+    def determine_winner_or_advantage(self, difference):
+        score = ""
+        if difference == 1:
+            score = "Advantage player1"
+        elif difference == -1:
+            score = "Advantage player2"
+        elif difference >= 2:
+            score = "Win for player1"
+        else:
+            score = "Win for player2"
+        return score
 
     def get_score(self):
         score = ""
@@ -37,31 +48,21 @@ class TennisGame:
         if self.is_tie(self.m_score1, self.m_score2):
             score = self.get_tie_results(self.m_score1)
         elif self.m_score1 >= self.MAX_SCORE or self.m_score2 >= self.MAX_SCORE:
-            minus_result = self.m_score1 - self. m_score2
-
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
-            else:
-                score = "Win for player2"
+            difference = self.m_score1 - self. m_score2
+            score = self.determine_winner_or_advantage(difference)
         else:
+            temp_score_dict = {
+                0:score + "Love",
+                1:score + "Fifteen",
+                2:score + "Thirty",
+                3:score + "Forty"
+            }
             for i in range(1, 3):
                 if i == 1:
                     temp_score = self.m_score1
                 else:
                     score = score + "-"
                     temp_score = self.m_score2
-
-                if temp_score == 0:
-                    score = score + "Love"
-                elif temp_score == 1:
-                    score = score + "Fifteen"
-                elif temp_score == 2:
-                    score = score + "Thirty"
-                elif temp_score == 3:
-                    score = score + "Forty"
+                score += temp_score_dict[temp_score]
 
         return score
