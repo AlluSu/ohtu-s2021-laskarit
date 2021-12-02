@@ -25,9 +25,8 @@ class TennisGame:
             3:"Forty-All",
             4:"Deuce"
         }
-        # näistä taikanumeroista voisi yrittää vielä päästä eroon
-        if result > 3 or result < 0:
-            return result_dict[4]
+        if result > self.MAX_SCORE-1:
+            return result_dict[self.MAX_SCORE]
         return result_dict[result]
 
     def determine_winner_or_advantage(self, difference):
