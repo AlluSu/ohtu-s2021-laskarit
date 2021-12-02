@@ -8,14 +8,13 @@ class Komento(Enum):
     NOLLAUS = 3
     KUMOA = 4
 
-class Summa:
+class Nollaus:
     def __init__(self, sovelluslogiikka, io):
         self._sovelluslogiikka = sovelluslogiikka
         self._io = io
 
-    #TODO
     def suorita(self):
-        pass
+        self._sovelluslogiikka.nollaa()
 
     #TODO tehtävä 5
     def kumoa(self):
@@ -26,26 +25,26 @@ class Erotus:
         self._sovelluslogiikka = sovelluslogiikka
         self._io = io
 
-    #TODO
     def suorita(self):
-        pass
+        luku = int(self._io())
+        self._sovelluslogiikka.miinus(luku)
 
     #TODO Tehtävä 5
     def kumoa(self):
         pass
 
-class Nollaus:
+class Summa:
     def __init__(self, sovelluslogiikka, io):
         self._sovelluslogiikka = sovelluslogiikka
         self._io = io
 
     def suorita(self):
-        pass
+        luku = int(self._io())
+        self._sovelluslogiikka.plus(luku)
 
     #TODO tehtävä 5
     def kumoa(self):
         pass
-
 
 class Kayttoliittyma:
     def __init__(self, sovelluslogiikka, root):
@@ -58,10 +57,6 @@ class Kayttoliittyma:
             Komento.NOLLAUS: Nollaus(sovelluslogiikka, self._lue_syote),
             #Komento.KUMOA: Kumoa(sovelluslogiikka, self._lue_syote)
         }
-        
-    # ...
-    # JOTAIN?
-    # ...
 
     def kaynnista(self):
         self._tulos_var = StringVar()
@@ -109,24 +104,6 @@ class Kayttoliittyma:
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
-        
-        '''
-        arvo = 0
-
-        try:
-            arvo = int(self._syote_kentta.get())
-        except Exception:
-            pass
-
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
-            pass
-        '''
         
         self._kumoa_painike["state"] = constants.NORMAL
 
