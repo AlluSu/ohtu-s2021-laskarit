@@ -15,10 +15,10 @@ class Nollaus:
 
     def suorita(self):
         self._sovelluslogiikka.nollaa()
+        self._sovelluslogiikka.aseta_edellinen_komento(self)
 
-    #TODO tehtävä 5
     def kumoa(self):
-        pass
+        self._sovelluslogiikka.kumoa()
 
 class Erotus:
     def __init__(self, sovelluslogiikka, io):
@@ -28,10 +28,10 @@ class Erotus:
     def suorita(self):
         luku = int(self._io())
         self._sovelluslogiikka.miinus(luku)
+        self._sovelluslogiikka.aseta_edellinen_komento(self)
 
-    #TODO Tehtävä 5
     def kumoa(self):
-        pass
+        self._sovelluslogiikka.kumoa()
 
 class Summa:
     def __init__(self, sovelluslogiikka, io):
@@ -41,10 +41,19 @@ class Summa:
     def suorita(self):
         luku = int(self._io())
         self._sovelluslogiikka.plus(luku)
+        self._sovelluslogiikka.aseta_edellinen_komento(self)
 
-    #TODO tehtävä 5
     def kumoa(self):
-        pass
+        self._sovelluslogiikka.kumoa()
+
+class Kumoa:
+     def __init__(self, sovelluslogiikka, io):
+         self._sovelluslogiikka = sovelluslogiikka
+         self._io = io
+
+     def suorita(self):
+         edellinen_komento = self._sovelluslogiikka.anna_edellinen_komento()
+         edellinen_komento.kumoa()
 
 class Kayttoliittyma:
     def __init__(self, sovelluslogiikka, root):
@@ -55,7 +64,7 @@ class Kayttoliittyma:
             Komento.SUMMA: Summa(sovelluslogiikka, self._lue_syote),
             Komento.EROTUS: Erotus(sovelluslogiikka, self._lue_syote),
             Komento.NOLLAUS: Nollaus(sovelluslogiikka, self._lue_syote),
-            #Komento.KUMOA: Kumoa(sovelluslogiikka, self._lue_syote)
+            Komento.KUMOA: Kumoa(sovelluslogiikka, self._lue_syote)
         }
 
     def kaynnista(self):
