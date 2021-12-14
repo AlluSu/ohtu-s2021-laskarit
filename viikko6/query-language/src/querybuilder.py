@@ -18,3 +18,7 @@ class QueryBuilder:
     def hasFewerThan(self, amount, amount_of_what):
         self._current_matcher = And(self._current_matcher, HasFewerThan(amount, amount_of_what))
         return self
+
+    def oneOf(self, first_condition, second_condition):
+        self._current_matcher = Or(self._current_matcher, Or(first_condition, second_condition))
+        return self
